@@ -1,0 +1,30 @@
+{
+    "name": "@msbrightsyde/agenda-backend",
+    "version": "1.0.1",
+    "description": "project for class.",
+    "main": "app.js",
+    "keywords": [
+        "database"
+    ],
+    "author": "MsBrightSyde 118px118@gmail.com",
+    "license": "none",
+    "homepage": "https://github.com/MsBriteSyde/agenda-backend-assignment.git",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MsBriteSyde/agenda-backend-assignment.git"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.1",
+        "express": "^4.18.2",
+        "pg": "^8.16.3"
+    },
+    "engines": {
+        "node": ">=16.x"
+    },
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js"
+    },
+    "private": true
+}
