@@ -8,11 +8,11 @@
         "database"
     ],
     "author": "MsBrightSyde 118px118@gmail.com",
-    "license": "none",
-    "homepage": "https://github.com/MsBriteSyde/agenda-backend-assignment.git",
+    "license": "unlicensed",
+    "homepage": "https://github.com/MsBriteSyde/agenda-back-end-assignment.git",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/MsBriteSyde/agenda-backend-assignment.git"
+        "url": "git+https://github.com/MsBriteSyde/agenda-back-end-assignment.git"
     },
     "dependencies": {
         "cors": "^2.8.5",
@@ -30,3 +30,4 @@
     },
     "private": true
 }
+
