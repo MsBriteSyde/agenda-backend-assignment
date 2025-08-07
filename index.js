@@ -10,5 +10,6 @@ app.use('/api/', employee);
 app.use('/api/', tasks);
 app.listen(port, () => {
 
-  console.log(`Server is running on http://localhost:${port}`)
+  console.log(`Server is running on ${port}`)
+
 })
