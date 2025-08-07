@@ -1,31 +1,41 @@
-const pool = require('../db');
+import { pool } from '../db/db.js';
 
-exports.getAllTasks = async (req, res) => {
-  const result = await pool.query('SELECT * FROM tasks');
-  res.json(result.rows);
-};
+export const getTasks = async (req, res) => {
 
-exports.addTask = async (req, res) => {
-  const { description, status, employee_id } = req.body;
-  const result = await pool.query(
-    'INSERT INTO tasks (description, status, employee_id) VALUES ($1, $2, $3) RETURNING *',
-    [description, status, employee_id]
-  );
-  res.status(201).json(result.rows[0]);
-};
+  const sql = 'select * from agenda.tasks';
+  const result = await pool.query(sql)
+  return res.json(result.rows)
+}
 
-exports.updateTask = async (req, res) => {
-  const { id } = req.params;
-  const { description, status } = req.body;
-  const result = await pool.query(
-    'UPDATE tasks SET description = $1, status = $2 WHERE task_id = $3 RETURNING *',
-    [description, status, id]
-  );
-  res.json(result.rows[0]);
-};
+export const postTasks = async (req, res) => {
+  const sql = 'insert into agenda.tasks (description, status, employee_id) values ($1, $2, $3)';
+  const body = req.body;
+  const parameters = [body.description, body.status, body.employee_id];
+  await pool.query(sql, parameters);
+  return res.json(req.body);
+}
 
-exports.deleteTask = async (req, res) => {
-  const { id } = req.params;
-  await pool.query('DELETE FROM tasks WHERE task_id = $1', [id]);
-  res.sendStatus(204);
-};
+export const deleteTasks = async (req, res) => {
+
+  const sql = 'delete from agenda.tasks where task_id = $1';
+  const task_id = req.params.id;
+  const result = await pool.query(sql, [task_id]);
+  // console.log(req.params.id);
+// console.log(req.params);
+
+  const parameters = [task_id];
+  //await pool.query(sql, parameters);
+  return res.json({ message: 'Task deleted successfully' });
+
+}
+
+export const putTasks = async (req, res) => {
+  const sql = 'update agenda.tasks set description = $1, status = $2, employee_id = $3 where task_id = $4';
+  const body = req.body;
+
+  const task_id = req.params.id;
+  const parameter = [body.description, body.status, body.employee_id, task_id];
+  const result = await pool.query(sql, parameter);
+  return res.json({ message: 'Task updated successfully' });
+}
+

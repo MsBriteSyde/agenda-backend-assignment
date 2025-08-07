@@ -1,31 +1,42 @@
-const pool = require('../db');
+import { pool } from '../db/db.js';
 
-exports.getAllEmployees = async (req, res) => {
-  const result = await pool.query('SELECT * FROM employee');
-  res.json(result.rows);
-};
+export const getEmployee = async (req, res) => {
 
-exports.addEmployee = async (req, res) => {
-  const { name, department, role } = req.body;
-  const result = await pool.query(
-    'INSERT INTO employee (name, department, role) VALUES ($1, $2, $3) RETURNING *',
-    [name, department, role]
-  );
-  res.status(201).json(result.rows[0]);
-};
+  const sql = 'select * from agenda.employee';
+  const result = await pool.query(sql)
+  return res.json(result.rows)
+}
 
-exports.updateEmployee = async (req, res) => {
-  const { id } = req.params;
-  const { name, department, role } = req.body;
-  const result = await pool.query(
-    'UPDATE employee SET name = $1, department = $2, role = $3 WHERE employee_id = $4 RETURNING *',
-    [name, department, role, id]
-  );
-  res.json(result.rows[0]);
-};
+export const postEmployee = async (req, res) => {
+  const sql = 'insert into agenda.employee (name, department, role) values ($1, $2, $3)';
+  const body = req.body;
+  const parameters = [body.name, body.department, body.role];
+  await pool.query(sql, parameters);
+  return res.json(req.body);
+}
 
-exports.deleteEmployee = async (req, res) => {
-  const { id } = req.params;
-  await pool.query('DELETE FROM employee WHERE employee_id = $1', [id]);
-  res.sendStatus(204);
-};
+//delete employee
+export const deleteEmployee = async (req, res) => {
+
+  const sql = 'delete from agenda.employee where employee_id = $1';
+  const employee_id = req.params.id;
+  const result = await pool.query(sql, [employee_id]);
+  // console.log(req.params.id);
+  // console.log(req.params);
+
+
+const parameters = [employee_id];
+  //await pool.query(sql, parameters);
+  return res.json({ message: 'Employee deleted successfully' });
+}
+
+export const putEmployee = async (req, res) => {
+  const sql = 'update agenda.employee set name = $1, department = $2, role = $3 where employee_id = $4';
+  const body = req.body;
+
+
+const employee_id = req.params.employee_id;
+const parameter = [body.name, body.department, body.role, employee_id];
+const result = await pool.query(sql, parameter);
+return res.json({ message: 'object updated successfully' });
+}
