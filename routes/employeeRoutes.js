@@ -1,10 +1,17 @@
-import express from 'express';
-export const employee = express.Router();
-import { getEmployee, postEmployee, deleteEmployee, putEmployee } from '../controllers/employeeController.js'; 
+import { Router } from "express";
+import { pool } from "../db/db.js";
+import {
+  getEmployee,
+  postEmployee,
+  deleteEmployee,
+  putEmployee,
+} from "../controllers/employeeController.js";
 
-employee.get('/employee/', getEmployee );
-employee.post('/employee/', postEmployee );
-employee.delete('/employee/:id', deleteEmployee);
-employee.put('/employee/:id', putEmployee);
+const router = Router();
 
-//
+router.get("/", getEmployee);
+router.post("/", postEmployee);
+router.put("/:id", putEmployee);
+router.delete("/:id", deleteEmployee);
+
+export default router;
