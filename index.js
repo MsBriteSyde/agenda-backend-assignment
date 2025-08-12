@@ -9,7 +9,7 @@ import fs from "fs";
 import https from "https";
 
 const environment = process.env.NODE_ENVIRONMENT;
-let const port = 4000;
+let port = 4000;
 
 if (environment === "production") {
   port = 443;
@@ -38,5 +38,6 @@ if (environment === "production") {
     console.log(`listening on port ${port}`);
   });
 }
+
 
 
