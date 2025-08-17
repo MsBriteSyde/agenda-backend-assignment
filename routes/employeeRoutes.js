@@ -11,5 +11,3 @@ employee.get("/employee/", getEmployee);
 employee.post("/employee/", postEmployee);
 employee.delete("/employee/:employee_id", deleteEmployee);
 employee.put("/employee/:employee_id", putEmployee);
-
-//
