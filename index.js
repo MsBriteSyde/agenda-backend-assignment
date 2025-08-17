@@ -1,13 +1,13 @@
 import express from "express";
-import express from "express";
-const app = express();
 import dotenv from "dotenv";
-dotenv.config();
-import { employee } from "./routes/employeeRoutes.js";
-import { tasks } from "./routes/taskRoutes.js";
 import cors from "cors";
 import fs from "fs";
 import https from "https";
+import { employee } from "./routes/employeeRoutes.js";
+import { tasks } from "./routes/taskRoutes.js";
+
+const app = express();
+dotenv.config();
 
 const environment = process.env.NODE_ENVIRONMENT;
 let port = 4000;
