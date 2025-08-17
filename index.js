@@ -9,7 +9,7 @@ import { tasks } from "./routes/taskRoutes.js";
 const app = express();
 dotenv.config();
 
-const environment = process.env.NODE_ENVIRONMENT;
+const environment = process.env.NODE_ENV;
 let port = 4000;
 
 if (environment === "production") {
@@ -22,18 +22,22 @@ app.use("/api/", employee);
 app.use("/api/", tasks);
 
 if (environment === "production") {
-  const options = {
-    key: fs.readFileSync(
-      "/etc/letsencrypt/live/jbethhof.codex-p4-2025.click/privkey.pem"
-    ),
-    cert: fs.readFileSync(
-      "/etc/letsencrypt/live/jbethhof.codex-p4-2025.click/fullchain.pem"
-    ),
-  };
-
-  https.createServer(options, app).listen(port, () => {
-    console.log("HTTPS server is running on port 443");
-  });
+  try {
+    const options = {
+      key: fs.readFileSync(
+        "/etc/letsencrypt/live/jbethhof.codex-p4-2025.click/privkey.pem"
+      ),
+      cert: fs.readFileSync(
+        "/etc/letsencrypt/live/jbethhof.codex-p4-2025.click/fullchain.pem"
+      ),
+    };
+    https.createServer(options, app).listen(port, () => {
+      console.log(`HTTPS server is running on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start HTTPS server:", error);
+    process.exit(1);
+  }
 } else {
   app.listen(port, () => {
     console.log(`listening on port ${port}`);
