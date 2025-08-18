@@ -9,7 +9,7 @@ import { tasks } from "./routes/taskRoutes.js";
 const app = express();
 dotenv.config();
 
-const environment = process.env.NODE_ENV;
+const environment = process.env.NODE_ENVIRONMENT;
 let port = 4000;
 
 if (environment === "production") {
